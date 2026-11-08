@@ -4,5 +4,6 @@ export * from './confirmation';
 export * from './dialog';
 export * from './input';
 export * from './notice';
+export * from './select';
 export * from './textarea';
 export * from './typography';
