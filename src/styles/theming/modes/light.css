@@ -1,0 +1,24 @@
+@layer bd.tokens {
+	:where(:root, [data-mode='light']) {
+		color-scheme: light;
+
+		--color-ink: #000000;
+		--color-ink-inverse: #ffffff;
+		--color-muted: #656c78;
+		--color-required: #b91c1c;
+
+		--bg-main: #ffffff;
+		--bg-canvas: #f3f4f6;
+		--bg-surface-muted: #e5e7eb;
+		--bg-disabled: #d1d5db;
+		--bg-notice: #fafafa;
+		--bg-notice-error: #fecaca;
+		--bg-overlay: rgba(0, 0, 0, 0.5);
+	}
+
+	@media (prefers-contrast: more) {
+		:where(:root, [data-mode='light']) {
+			--color-muted: var(--color-ink);
+		}
+	}
+}

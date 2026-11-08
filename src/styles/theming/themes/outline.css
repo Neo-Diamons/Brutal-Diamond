@@ -1,0 +1,48 @@
+@layer bd.tokens, bd.base, bd.components;
+
+@layer bd.tokens {
+	[data-theme='outline'] {
+		--color-on-accent: #0b0b0c;
+		--bg-primary: #2d81ff;
+		--bg-secondary: #ffc14d;
+		--bg-destructive: #ff6259;
+
+		--color-line: color-mix(in srgb, var(--color-ink) 45%, transparent);
+
+		--border-width: 1px;
+		--shadow-offset: 0px;
+		--shadow-color: transparent;
+		--border-style-alt: dashed;
+
+		--shadow-pressed: inset 0 0 0 1px var(--color-line);
+		--shadow-hover: inset 0 0 0 1px color-mix(in srgb, var(--color-line) 50%, transparent);
+		--shadow-focus: inset 0 0 0 1px var(--bg-primary);
+
+		--font-weight-regular: 300;
+		--font-weight-medium: 400;
+		--font-weight-bold: 500;
+		--font-weight-black: 600;
+		--tracking-wide: 0.12em;
+
+		--margin-button: -1px;
+
+		--padding-card: var(--space-9);
+
+		--button-primary-bg: var(--color-ink);
+		--button-primary-fg: var(--color-ink-inverse);
+		--button-pressed-filter: brightness(0.75);
+		--button-filled-border-color: transparent;
+		--button-filled-shadow: none;
+		--button-secondary-bg: var(--bg-main);
+		--button-secondary-fg: var(--color-ink);
+		--button-secondary-hover-bg: var(--bg-surface-muted);
+
+		--shadow-active: var(--shadow-pressed);
+	}
+
+	@media (prefers-contrast: more) {
+		[data-theme='outline'] {
+			--color-line: var(--color-ink);
+		}
+	}
+}

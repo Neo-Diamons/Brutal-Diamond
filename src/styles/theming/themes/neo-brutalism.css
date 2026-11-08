@@ -1,0 +1,36 @@
+@layer bd.tokens {
+	:where(:root, [data-theme='neo-brutalism']) {
+		--color-on-accent: #000000;
+		--bg-primary: #a855f7;
+		--bg-secondary: #ffde59;
+		--bg-destructive: #ff4a4a;
+
+		--shadow-offset: 4px;
+
+		--font-weight-regular: 500;
+		--font-weight-medium: 700;
+		--font-weight-bold: 800;
+		--font-weight-black: 900;
+		--tracking-wide: 0.05em;
+	}
+
+	[data-theme='neo-brutalism'][data-mode='dark'] {
+		--color-ink: #eceaf6;
+		--color-ink-inverse: #14141a;
+		--color-muted: #a9a8bc;
+		--color-required: #ff8a80;
+		--color-on-surface: #000000;
+		--color-on-surface-inverse: #ead6fd;
+		--color-on-surface-muted: #50466a;
+		--color-line: #000000;
+		--shadow-color: #000000;
+
+		--bg-main: #ead6fd;
+		--bg-canvas: #1a1a24;
+		--bg-surface-muted: #dcc4f9;
+		--bg-disabled: #c8b6e0;
+		--bg-notice: #f3e6fe;
+		--bg-notice-error: #f6c9c4;
+		--bg-overlay: rgba(0, 0, 0, 0.7);
+	}
+}

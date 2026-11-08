@@ -1,0 +1,23 @@
+@layer bd.base {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: var(--font-family);
+		background-color: var(--bg-canvas);
+		color: var(--color-ink);
+		margin: 0;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	::selection {
+		background-color: var(--bg-primary);
+		color: var(--color-on-accent);
+	}
+}

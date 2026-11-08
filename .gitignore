@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Build output
+/dist
+/.svelte-kit
+/storybook-static
+
+# Tests
+/coverage
+/.vitest
+
+# Logs & tool artifacts
+*.log
+vite.config.ts.timestamp-*
+
+# OS
+.DS_Store
+
+# Local notes & backups
+/TODO.md
+/.backup

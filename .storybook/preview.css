@@ -1,0 +1,7 @@
+body.sb-main-centered,
+body.sb-main-padded,
+body.sb-main-fullscreen,
+.docs-story {
+	background-color: var(--bg-canvas);
+	color: var(--color-ink);
+}

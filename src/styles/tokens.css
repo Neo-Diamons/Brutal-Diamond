@@ -1,0 +1,145 @@
+@layer bd.tokens {
+	:root {
+		--width-text: 640px;
+		--width-form: 450px;
+		--width-container: 1140px;
+		--width-mobile: 320px;
+		--width-sidebar: 280px;
+		--width-card: 24rem;
+		--width-card-min: 240px;
+		--width-dialog: min(var(--width-form), 90vw);
+
+		--blur-overlay: 4px;
+
+		--space-unit: 2px;
+		--space-1: calc(1 * var(--space-unit));
+		--space-2: calc(2 * var(--space-unit));
+		--space-3: calc(3 * var(--space-unit));
+		--space-4: calc(4 * var(--space-unit));
+		--space-5: calc(5 * var(--space-unit));
+		--space-6: calc(6 * var(--space-unit));
+		--space-7: calc(7 * var(--space-unit));
+		--space-8: calc(8 * var(--space-unit));
+		--space-9: calc(9 * var(--space-unit));
+
+		--size-media-height: 140px;
+		--size-action-min-width: 90px;
+
+		--radius-sharp: 0px;
+
+		--duration-press: 0.05s;
+		--motion-slide: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+		--font-family: 'Karla Variable', 'Karla', system-ui, sans-serif;
+
+		--font-size-2xs: 11px;
+		--font-size-xs: 12px;
+		--font-size-sm: 13px;
+		--font-size-md: 14px;
+		--font-size-base: 16px;
+		--font-size-lg: 18px;
+		--font-size-xl: 24px;
+		--font-size-2xl: 32px;
+
+		--line-height-normal: normal;
+		--line-height-body: 1.6;
+
+		--tracking-tight: -0.03em;
+		--tracking-snug: -0.02em;
+	}
+
+	:where(:root, [data-theme], [data-mode]) {
+		--border-width: initial;
+		--border-width-thick: var(--border-width, 5px);
+		--border-width-thin: var(--border-width, 4px);
+		--border-width-md: var(--border-width, 3px);
+		--border-width-sm: var(--border-width, 2px);
+
+		--offset-hover: calc(var(--shadow-offset) / -4);
+		--offset-press-sm: calc(var(--shadow-offset) / 2);
+		--offset-press: var(--shadow-offset);
+
+		--border-thick: var(--border-width-thick) solid var(--color-line);
+		--border-thin: var(--border-width-thin) solid var(--color-line);
+		--border-md: var(--border-width-md) solid var(--color-line);
+		--border-sm: var(--border-width-sm) solid var(--color-line);
+		--border-dashed: var(--border-width-sm) dashed var(--color-line);
+
+		--color-line: var(--color-ink);
+		--color-on-surface: var(--color-ink);
+		--color-on-surface-inverse: var(--color-ink-inverse);
+		--color-on-surface-muted: var(--color-muted);
+		--color-badge-shadow: color-mix(in srgb, var(--shadow-color) 40%, transparent);
+
+		--border-style-alt: solid;
+		--border-outline: var(--border-width-thin) var(--border-style-alt) var(--color-line);
+
+		--shadow-color: var(--color-ink);
+		--shadow-none: 0 0 0 0 transparent;
+		--shadow-sm: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 0 var(--shadow-color);
+		--shadow-flat: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+		--shadow-hover: calc(var(--shadow-offset) + 1px) calc(var(--shadow-offset) + 1px) 0
+			var(--shadow-color);
+		--shadow-card: calc(var(--shadow-offset) * 2) calc(var(--shadow-offset) * 2) 0
+			var(--shadow-color);
+		--shadow-focus: calc(var(--shadow-offset) * 1.5) calc(var(--shadow-offset) * 1.5) 0
+			var(--bg-primary);
+		--shadow-badge: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 0
+			var(--color-badge-shadow);
+		--shadow-pressed: var(--shadow-none);
+		--shadow-active: var(--shadow-sm);
+
+		--margin-button: var(--space-3);
+
+		--button-primary-bg: var(--bg-primary);
+		--button-primary-fg: var(--color-on-accent);
+		--button-pressed-filter: none;
+		--button-secondary-bg: var(--bg-secondary);
+		--button-secondary-fg: var(--color-on-accent);
+		--button-secondary-hover-bg: var(--bg-secondary);
+
+		--gap-xs: var(--space-3);
+		--gap-sm: var(--space-4);
+		--gap-md: var(--space-6);
+		--gap-lg: var(--space-8);
+		--gap-list: var(--gap-md);
+
+		--padding-icon: var(--space-2);
+		--padding-badge: var(--space-1) var(--space-4);
+		--padding-action: var(--space-5) var(--space-8);
+		--padding-item: var(--space-5) var(--space-7);
+		--padding-control: var(--padding-action);
+		--padding-card: var(--space-3) var(--space-9);
+		--padding-card-edge: var(--space-9);
+
+		--margin-field: var(--space-3);
+		--margin-card: var(--space-6);
+		--margin-text-sm: var(--space-4);
+		--margin-text-md: var(--space-6);
+		--margin-text-lg: var(--space-8);
+
+		--font-h1: var(--font-weight-bold) var(--font-size-2xl) / var(--line-height-normal)
+			var(--font-family);
+		--font-h2: var(--font-weight-bold) var(--font-size-xl) / var(--line-height-normal)
+			var(--font-family);
+		--font-h3: var(--font-weight-bold) var(--font-size-lg) / var(--line-height-normal)
+			var(--font-family);
+		--font-body: var(--font-weight-regular) var(--font-size-md) / var(--line-height-body)
+			var(--font-family);
+		--font-label: var(--font-weight-bold) var(--font-size-xs) / var(--line-height-normal)
+			var(--font-family);
+		--font-action: var(--font-weight-bold) var(--font-size-sm) / var(--line-height-normal)
+			var(--font-family);
+		--font-field: var(--font-weight-medium) var(--font-size-sm) / var(--line-height-normal)
+			var(--font-family);
+		--font-caption: var(--font-weight-black) var(--font-size-2xs) / var(--line-height-normal)
+			var(--font-family);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:root {
+			--duration-press: 0s;
+			--motion-slide: 0.01s linear;
+		}
+	}
+}

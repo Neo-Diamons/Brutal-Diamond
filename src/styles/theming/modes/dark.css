@@ -1,0 +1,26 @@
+@layer bd.tokens, bd.base, bd.components;
+
+@layer bd.tokens {
+	[data-mode='dark'] {
+		color-scheme: dark;
+
+		--color-ink: #f2f1ee;
+		--color-ink-inverse: #0b0b0c;
+		--color-muted: rgba(242, 241, 238, 0.6);
+		--color-required: #ff6259;
+
+		--bg-main: #121316;
+		--bg-canvas: #121316;
+		--bg-surface-muted: #1b1c21;
+		--bg-disabled: #17181c;
+		--bg-notice: #101014;
+		--bg-notice-error: #3a1714;
+		--bg-overlay: rgba(6, 6, 7, 0.75);
+	}
+
+	@media (prefers-contrast: more) {
+		[data-mode='dark'] {
+			--color-muted: var(--color-ink);
+		}
+	}
+}
