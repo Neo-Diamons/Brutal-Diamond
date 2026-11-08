@@ -111,6 +111,12 @@
 		--list-badge-border: var(--border-sm);
 		--list-badge-padding: var(--padding-badge);
 
+		--toast-border: var(--border-width-md) var(--border-style-alt) var(--color-line);
+		--toast-icon-block: 0;
+		--toast-icon-accent: 0;
+		--toast-icon-border-width: var(--border-width-sm);
+		--toast-timer-height: var(--space-2);
+
 		--gap-xs: var(--space-3);
 		--gap-sm: var(--space-4);
 		--gap-md: var(--space-6);

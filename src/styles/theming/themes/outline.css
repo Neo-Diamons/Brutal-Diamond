@@ -58,6 +58,11 @@
 		--list-badge-padding: 0px;
 		--list-badge-active-bg: transparent;
 		--list-badge-active-fg: currentColor;
+
+		--toast-border: var(--border-width-md) solid var(--color-line);
+		--toast-icon-accent: 1;
+		--toast-icon-border-width: 0px;
+		--toast-timer-height: var(--border-width-sm);
 	}
 
 	@media (prefers-contrast: more) {
