@@ -5,7 +5,7 @@
 	export type TextareaProps = HTMLTextareaAttributes & {
 		/** Text of the label shown above the textarea. */
 		label?: string;
-		/** Number of visible text lines. Defaults to `4`. */
+		/** Number of visible text lines. Defaults to `4`. Height never exceeds `--textarea-max-height`. */
 		rows?: number;
 	};
 </script>
@@ -48,6 +48,7 @@
 			width: 100%;
 			max-width: 100%;
 			min-height: calc(1lh + 2 * var(--space-5) + 2 * var(--border-width-thin));
+			max-height: var(--textarea-max-height);
 			resize: vertical;
 			margin-bottom: var(--margin-field);
 			padding: var(--padding-control);

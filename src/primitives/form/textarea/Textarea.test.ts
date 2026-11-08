@@ -43,4 +43,16 @@ describe('Textarea', () => {
 
 		expect(height(area)).toBeGreaterThanOrEqual(height(input));
 	});
+
+	it('stops growing at its maximum height', async () => {
+		const height = async (rows: number) => {
+			render(Textarea, { label: `Rows ${rows}`, rows });
+			return page.getByLabelText(`Rows ${rows}`).element().getBoundingClientRect().height;
+		};
+
+		const five = await height(5);
+		const perRow = ((await height(10)) - five) / 5;
+
+		expect(await height(100)).toBeLessThan(five + 95 * perRow);
+	});
 });

@@ -141,6 +141,7 @@
 		--padding-card-edge: var(--space-9);
 
 		--margin-field: var(--space-3);
+		--textarea-max-height: 20lh;
 		--margin-card: var(--space-6);
 		--margin-text-sm: var(--space-4);
 		--margin-text-md: var(--space-6);
