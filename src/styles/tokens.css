@@ -107,6 +107,15 @@
 		--gap-lg: var(--space-8);
 		--gap-list: var(--gap-md);
 
+		--padding-footer: var(--padding-card);
+		--padding-footer-end: var(--padding-card-edge);
+		--gap-footer: var(--gap-md);
+		--margin-footer-button: var(--margin-button);
+		--footer-button-grow: 0;
+		--border-footer: 0px none;
+		--border-footer-button: var(--border-thin);
+		--border-footer-divider: var(--border-thin);
+
 		--padding-icon: var(--space-2);
 		--padding-badge: var(--space-1) var(--space-4);
 		--padding-action: var(--space-5) var(--space-8);

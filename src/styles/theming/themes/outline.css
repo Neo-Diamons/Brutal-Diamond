@@ -28,6 +28,15 @@
 
 		--padding-card: var(--space-9);
 
+		--padding-footer: 0px;
+		--padding-footer-end: 0px;
+		--gap-footer: 0px;
+		--margin-footer-button: 0px;
+		--footer-button-grow: 1;
+		--border-footer: var(--border-sm);
+		--border-footer-button: 0px none;
+		--border-footer-divider: var(--border-sm);
+
 		--button-primary-bg: var(--color-ink);
 		--button-primary-fg: var(--color-ink-inverse);
 		--button-pressed-filter: brightness(0.75);
