@@ -1,0 +1,42 @@
+name: Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: package.json
+
+      - name: Audit dependencies
+        id: audit
+        run: npm audit --audit-level=high
+
+      - name: Open issue on failure
+        if: failure() && steps.audit.outcome == 'failure' && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create npm-audit --description 'Weekly npm audit failure' --force
+          if [ -z "$(gh issue list --state open --label npm-audit --json number --jq '.[0].number')" ]; then
+            gh issue create \
+              --title 'Weekly npm audit failed' \
+              --label npm-audit \
+              --body "\`npm audit --audit-level=high\` reported vulnerabilities: $RUN_URL"
+          fi
