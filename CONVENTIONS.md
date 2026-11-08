@@ -93,6 +93,7 @@ Wrap everything in the component layer, and only use tokens:
 
 ## Accessibility
 
+- Form components take `label` and `required` and wire the label to the control.
 - Expose state through ARIA attributes, not only classes.
 - The Storybook a11y addon must stay clean; fix violations instead of disabling rules.
 
