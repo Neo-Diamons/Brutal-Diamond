@@ -1,10 +1,13 @@
 /// <reference types="vite/client" />
 import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { createRawSnippet } from 'svelte';
 import { render } from 'vitest-browser-svelte';
 
 import '../styles/index.css';
+import '../styles/theming/themes/outline.css';
+import '../styles/theming/modes/dark.css';
+import { THEMES, setTheme } from '../styles/theming/theme';
 import Button from '../primitives/button/Button.svelte';
 import Input from '../primitives/form/input/Input.svelte';
 import Select from '../primitives/form/select/Select.svelte';
@@ -19,8 +22,14 @@ const renderControls = () => {
 	render(Button, { children: createRawSnippet(() => ({ render: () => '<span>Go</span>' })) });
 };
 
-describe('control height', () => {
+afterEach(() => {
+	delete document.documentElement.dataset.theme;
+	delete document.documentElement.dataset.mode;
+});
+
+describe.each(THEMES)('control height in the %s theme', (theme) => {
 	it('is the same for buttons, inputs and selects, and the minimum for textareas', async () => {
+		await setTheme(theme);
 		renderControls();
 
 		const button = height(page.getByRole('button', { name: 'Go' }).element());
@@ -29,7 +38,9 @@ describe('control height', () => {
 		expect(height(page.getByLabelText('Choice').element())).toBe(button);
 		expect(height(page.getByLabelText('Notes').element())).toBe(button);
 	});
+});
 
+describe('control spacing', () => {
 	it('leaves the same room under the field for its shadow', async () => {
 		renderControls();
 

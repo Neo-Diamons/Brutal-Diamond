@@ -6,7 +6,7 @@ import './themes/outline.css';
 import './modes/dark.css';
 import './font';
 import { themes } from './registry';
-import { getMode, getTheme, setMode, setTheme } from './theme';
+import { MODES, getMode, getTheme, setMode, setTheme } from './theme';
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -75,6 +75,12 @@ describe('theme', () => {
 		expect(getMode()).toBe('dark');
 	});
 
+	it.each(MODES)('sets color-scheme to the %s mode', async (mode) => {
+		await setMode(mode);
+
+		expect(getComputedStyle(document.documentElement).colorScheme).toBe(mode);
+	});
+
 	it('keeps a mode already set on the element when switching theme', async () => {
 		const root = document.createElement('div');
 		root.dataset.mode = 'dark';
@@ -134,5 +140,56 @@ describe('theme', () => {
 		await expect(failing).rejects.toThrow('offline');
 		await newer;
 		expect(getTheme()).toBe('neo-brutalism');
+	});
+});
+
+const files = (glob: Record<string, string>) =>
+	Object.entries(glob).map(([path, css]) => [path.split('/').pop()!, css] as const);
+
+const themeFiles = files(
+	import.meta.glob('./themes/*.css', { query: '?raw', import: 'default', eager: true })
+);
+const modeFiles = files(
+	import.meta.glob('./modes/*.css', { query: '?raw', import: 'default', eager: true })
+);
+
+const themeTokens = [
+	'--color-on-accent',
+	'--bg-primary',
+	'--bg-secondary',
+	'--bg-destructive',
+	'--shadow-offset',
+	'--font-weight-regular',
+	'--font-weight-medium',
+	'--font-weight-bold',
+	'--font-weight-black',
+	'--tracking-wide'
+];
+
+const modeTokens = [
+	'color-scheme',
+	'--color-ink',
+	'--color-ink-inverse',
+	'--color-muted',
+	'--color-required',
+	'--bg-main',
+	'--bg-canvas',
+	'--bg-surface-muted',
+	'--bg-disabled',
+	'--bg-notice',
+	'--bg-notice-error',
+	'--bg-overlay'
+];
+
+const missing = (css: string, names: string[]) =>
+	names.filter((name) => !new RegExp(`(^|[\\s{;])${name}\\s*:`).test(css));
+
+describe('theme contract', () => {
+	it.each(themeFiles)('%s defines every required theme token', (_file, css) => {
+		expect(missing(css, themeTokens)).toEqual([]);
+	});
+
+	it.each(modeFiles)('%s defines every required mode token', (_file, css) => {
+		expect(missing(css, modeTokens)).toEqual([]);
 	});
 });
