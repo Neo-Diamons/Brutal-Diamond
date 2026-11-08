@@ -21,7 +21,7 @@
 </script>
 
 <script lang="ts">
-	import { Label } from '../typography';
+	import { Label } from '../../typography';
 
 	let {
 		label,

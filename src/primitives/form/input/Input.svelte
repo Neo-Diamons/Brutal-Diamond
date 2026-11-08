@@ -1,27 +1,24 @@
 <script lang="ts" module>
-	import type { HTMLTextareaAttributes } from 'svelte/elements';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	/** Props of `Textarea`, a labelled multi-line field. Also accepts any `<textarea>` attribute. */
-	export type TextareaProps = HTMLTextareaAttributes & {
-		/** Text of the label shown above the textarea. */
+	/** Props of `Input`, a labelled text field. Also accepts any `<input>` attribute. */
+	export type InputProps = HTMLInputAttributes & {
+		/** Text of the label shown above the input. */
 		label?: string;
-		/** Number of visible text lines. Defaults to `4`. */
-		rows?: number;
 	};
 </script>
 
 <script lang="ts">
-	import { Label } from '../typography';
+	import { Label } from '../../typography';
 
 	let {
 		label,
 		id,
 		required,
-		rows = 4,
 		value = $bindable(),
 		class: className,
 		...rest
-	}: TextareaProps = $props();
+	}: InputProps = $props();
 
 	const generatedId = $props.id();
 	const inputId = $derived(id?.trim() || generatedId);
@@ -31,8 +28,7 @@
 	{#if label}
 		<Label for={inputId} required={!!required}>{label}</Label>
 	{/if}
-	<textarea id={inputId} class={['input', className]} bind:value {required} {rows} {...rest}
-	></textarea>
+	<input id={inputId} class={['input', className]} bind:value {required} {...rest} />
 </div>
 
 <style>
@@ -46,9 +42,6 @@
 
 		.input {
 			width: 100%;
-			max-width: 100%;
-			min-height: calc(1lh + 2 * var(--space-5) + 2 * var(--border-width-thin));
-			resize: vertical;
 			margin-bottom: var(--margin-field);
 			padding: var(--padding-control);
 

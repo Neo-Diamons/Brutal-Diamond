@@ -2,7 +2,7 @@ import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 
-import '../../styles/index.css';
+import '../../../styles/index.css';
 import Input from '../input/Input.svelte';
 import Textarea from './Textarea.svelte';
 

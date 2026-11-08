@@ -5,7 +5,7 @@
 	import Textarea from './Textarea.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Primitives/Textarea',
+		title: 'Primitives/Form/Textarea',
 		component: Textarea,
 		args: { label: 'Targets', rows: 5, placeholder: 'One URL per line' }
 	});

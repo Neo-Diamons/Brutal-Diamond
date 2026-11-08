@@ -6,9 +6,9 @@ import { render } from 'vitest-browser-svelte';
 
 import '../styles/index.css';
 import Button from '../primitives/button/Button.svelte';
-import Input from '../primitives/input/Input.svelte';
-import Select from '../primitives/select/Select.svelte';
-import Textarea from '../primitives/textarea/Textarea.svelte';
+import Input from '../primitives/form/input/Input.svelte';
+import Select from '../primitives/form/select/Select.svelte';
+import Textarea from '../primitives/form/textarea/Textarea.svelte';
 
 const height = (el: Element) => el.getBoundingClientRect().height;
 

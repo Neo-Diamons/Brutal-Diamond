@@ -5,7 +5,7 @@
 	import Input from './Input.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Primitives/Input',
+		title: 'Primitives/Form/Input',
 		component: Input,
 		args: { id: 'url', label: 'Target URL', placeholder: 'https://svelte.dev' }
 	});

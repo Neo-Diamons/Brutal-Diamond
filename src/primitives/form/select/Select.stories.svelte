@@ -5,7 +5,7 @@
 	import Select from './Select.svelte';
 
 	const { Story } = defineMeta({
-		title: 'Primitives/Select',
+		title: 'Primitives/Form/Select',
 		component: Select,
 		args: {
 			id: 'column',
