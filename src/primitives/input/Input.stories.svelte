@@ -20,6 +20,16 @@
 	}}
 />
 
-<Story name="Disabled" args={{ disabled: true, value: 'Locked' }} />
+<Story
+	name="Without label"
+	args={{ label: undefined, 'aria-label': 'Target URL' }}
+	play={async ({ canvasElement }) => {
+		const input = within(canvasElement).getByPlaceholderText('https://svelte.dev');
+		await userEvent.type(input, 'https://svelte.dev');
+		await expect(input).toHaveValue('https://svelte.dev');
+	}}
+/>
 
 <Story name="Required" args={{ required: true }} />
+
+<Story name="Disabled" args={{ disabled: true, value: 'Locked' }} />
