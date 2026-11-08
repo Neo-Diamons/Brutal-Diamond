@@ -98,6 +98,9 @@
 		--button-secondary-fg: var(--color-on-accent);
 		--button-secondary-hover-bg: var(--bg-secondary);
 
+		--link-primary-fg: color-mix(in srgb, var(--bg-primary) 45%, var(--color-ink));
+		--link-secondary-fg: inherit;
+
 		--gap-xs: var(--space-3);
 		--gap-sm: var(--space-4);
 		--gap-md: var(--space-6);

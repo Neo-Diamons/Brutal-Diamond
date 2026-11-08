@@ -7,13 +7,15 @@ How to write code in Brutal Diamond.
 ```
 src/primitives/<name>/
   <Name>.svelte           component
-  <Name>.stories.svelte   stories, title 'Primitives/<Name>'
+  <Name>.stories.svelte   stories, title 'Primitives/<Name>' ('Primitives/<Group>/<Name>' in a group)
   <Name>.test.ts          browser tests
   index.ts                export { default as Name, type NameProps, ... } from './Name.svelte';
 ```
 
 - One kebab-case folder per component. Sub-parts (`CardHeader`) stay in the parent folder; related
   components share a group folder (`typography/`).
+- Stories of a group component are titled `Primitives/<Group>/<Name>`, e.g.
+  `Primitives/Typography/Link`.
 - Export every public type of the component (props, variants) next to it.
 - Re-export each folder from `src/primitives/index.ts`. Export components individually (no barrel
   object) so bundlers can tree-shake.
