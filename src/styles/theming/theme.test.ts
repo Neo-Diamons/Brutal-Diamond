@@ -1,12 +1,15 @@
 /// <reference types="vite/client" />
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import '../index.css';
 import './themes/outline.css';
 import './modes/dark.css';
+import './font';
+import { themes } from './registry';
 import { getMode, getTheme, setMode, setTheme } from './theme';
 
 afterEach(() => {
+	vi.restoreAllMocks();
 	delete document.documentElement.dataset.theme;
 	delete document.documentElement.dataset.mode;
 });
@@ -97,5 +100,39 @@ describe('theme', () => {
 		expect(getMode(box)).toBe('dark');
 		expect(getMode()).toBe('light');
 		box.remove();
+	});
+
+	it('rejects and keeps the applied theme when its CSS fails to load', async () => {
+		vi.spyOn(themes.outline, 'load').mockRejectedValue(new Error('offline'));
+
+		const root = document.createElement('div');
+
+		await expect(setTheme('outline', root)).rejects.toThrow('offline');
+
+		expect(getTheme(root)).toBe('neo-brutalism');
+		expect(root.dataset.theme).toBeUndefined();
+	});
+
+	it('falls back to the last applied choice after a failed load', async () => {
+		const root = document.createElement('div');
+		await setTheme('neo-brutalism', root);
+		vi.spyOn(themes.outline, 'load').mockRejectedValueOnce(new Error('offline'));
+
+		await expect(setTheme('outline', root)).rejects.toThrow('offline');
+		await setMode('dark', root);
+
+		expect(getTheme(root)).toBe('neo-brutalism');
+		expect(getMode(root)).toBe('dark');
+	});
+
+	it('does not clobber a newer choice when an older load fails', async () => {
+		vi.spyOn(themes.outline, 'load').mockRejectedValueOnce(new Error('offline'));
+
+		const failing = setTheme('outline');
+		const newer = setTheme('neo-brutalism');
+
+		await expect(failing).rejects.toThrow('offline');
+		await newer;
+		expect(getTheme()).toBe('neo-brutalism');
 	});
 });

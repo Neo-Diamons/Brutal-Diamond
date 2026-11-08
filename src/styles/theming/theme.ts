@@ -1,23 +1,7 @@
-const modes = {
-	light: { label: 'Light', load: async () => {} },
-	dark: { label: 'Dark', load: () => import('./modes/dark.css') }
-} satisfies Record<string, { label: string; load: () => Promise<unknown> }>;
+import { modes, themes } from './registry';
 
 /** Name of a colour mode the library ships. */
 export type Mode = keyof typeof modes;
-
-const themes = {
-	'neo-brutalism': {
-		label: 'Neo-Brutalism',
-		mode: 'light',
-		load: async () => {}
-	},
-	outline: {
-		label: 'Outline',
-		mode: 'dark',
-		load: () => import('./themes/outline.css')
-	}
-} satisfies Record<string, { label: string; mode: Mode; load: () => Promise<unknown> }>;
 
 /** Name of a theme (a design: borders, shadows, type) the library ships. */
 export type Theme = keyof typeof themes;
