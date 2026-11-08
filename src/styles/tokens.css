@@ -101,6 +101,16 @@
 		--link-primary-fg: color-mix(in srgb, var(--bg-primary) 45%, var(--color-ink));
 		--link-secondary-fg: inherit;
 
+		--list-secondary-bg: var(--bg-secondary);
+		--list-secondary-item-bg: var(--bg-main);
+		--list-secondary-fg: var(--color-on-accent);
+		--list-secondary-border: var(--border-md);
+		--list-badge-order: 0;
+		--list-badge-bg: var(--color-ink);
+		--list-badge-fg: var(--color-ink-inverse);
+		--list-badge-border: var(--border-sm);
+		--list-badge-padding: var(--padding-badge);
+
 		--gap-xs: var(--space-3);
 		--gap-sm: var(--space-4);
 		--gap-md: var(--space-6);

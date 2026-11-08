@@ -47,6 +47,17 @@
 		--button-secondary-hover-bg: var(--bg-surface-muted);
 
 		--shadow-active: var(--shadow-pressed);
+
+		--list-secondary-bg: var(--color-ink);
+		--list-secondary-fg: var(--color-ink-inverse);
+		--list-secondary-border: var(--border-width-md) dotted var(--color-line);
+		--list-badge-order: 1;
+		--list-badge-bg: transparent;
+		--list-badge-fg: var(--color-muted);
+		--list-badge-border: 0px none;
+		--list-badge-padding: 0px;
+		--list-badge-active-bg: transparent;
+		--list-badge-active-fg: currentColor;
 	}
 
 	@media (prefers-contrast: more) {
