@@ -10,7 +10,10 @@
 		variant?: ButtonVariant;
 		/** Renders a square button sized for a single icon. Defaults to `false`. */
 		icon?: boolean;
-		/** Content of the button. */
+		/**
+		 * Content of the button. An `<svg>` placed next to the text is sized by `--size-action-icon`
+		 * without making the button taller.
+		 */
 		children?: Snippet;
 	};
 
@@ -84,6 +87,7 @@
 			text-transform: uppercase;
 			padding: var(--padding-action);
 			margin-bottom: var(--margin-button);
+			gap: var(--gap-xs);
 			cursor: pointer;
 			text-decoration: none;
 
@@ -94,6 +98,17 @@
 				transform var(--duration-press) ease,
 				box-shadow var(--duration-press) ease,
 				filter var(--duration-press) ease;
+
+			&:not(.icon) > :global(svg) {
+				flex-shrink: 0;
+				width: var(--size-action-icon);
+				height: var(--size-action-icon);
+				margin-block: calc((1em - var(--size-action-icon)) / 2);
+			}
+
+			&:not(.icon) > :global(svg:first-child) {
+				margin-inline-start: var(--margin-action-icon);
+			}
 
 			&:is(:disabled, [aria-disabled='true']) {
 				background-color: var(--bg-disabled);

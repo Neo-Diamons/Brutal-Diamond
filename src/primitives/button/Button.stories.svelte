@@ -48,6 +48,9 @@
 	}}
 />
 
+{#snippet labelWithIcon()}<ListIcon weight="bold" aria-hidden="true" />Menu{/snippet}
+<Story name="With icon" args={{ children: labelWithIcon }} />
+
 <Story name="Disabled" args={{ disabled: true }} />
 
 <Story name="As link" args={{ href: '#' }} />

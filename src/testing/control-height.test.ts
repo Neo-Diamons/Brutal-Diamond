@@ -40,6 +40,29 @@ describe.each(THEMES)('control height in the %s theme', (theme) => {
 	});
 });
 
+describe.each(THEMES)('button with an icon in the %s theme', (theme) => {
+	it('is as tall as a button without one', async () => {
+		await setTheme(theme);
+		const label = (text: string) =>
+			createRawSnippet(() => ({ render: () => `<span>${text}</span>` }));
+		render(Button, { children: label('Go') });
+		render(Button, { children: label('Plain') });
+
+		const withIcon = page.getByRole('button', { name: 'Go' }).element();
+		const plain = page.getByRole('button', { name: 'Plain' }).element();
+		const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		icon.setAttribute('viewBox', '0 0 32 32');
+		icon.setAttribute('width', '64');
+		icon.setAttribute('height', '64');
+		withIcon.prepend(icon);
+
+		expect(height(withIcon)).toBe(height(plain));
+		expect(icon.getBoundingClientRect().height).toBeGreaterThan(
+			parseFloat(getComputedStyle(withIcon).fontSize)
+		);
+	});
+});
+
 describe('control spacing', () => {
 	it('leaves the same room under the field for its shadow', async () => {
 		renderControls();
