@@ -2,6 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import {
+		Badge,
 		Button,
 		Caption,
 		Card,
@@ -74,7 +75,7 @@
 		const canvas = within(canvasElement);
 
 		const links = canvas.getAllByRole('link', { name: /^View story/ });
-		await expect(links).toHaveLength(13);
+		await expect(links).toHaveLength(14);
 		await expect(canvas.getByRole('link', { name: 'View story, Form/Input' })).toHaveAttribute(
 			'href',
 			expect.stringContaining('primitives-form-input--docs')
@@ -177,6 +178,16 @@
 			</List>
 		{/snippet}
 
+		{#snippet badges()}
+			<div class="row">
+				<Badge>Primary</Badge>
+				<Badge variant="secondary">Secondary</Badge>
+				<Badge variant="outline">Outline</Badge>
+				<Badge variant="destructive">Destructive</Badge>
+				<Badge fill="#22c55e">Custom</Badge>
+			</div>
+		{/snippet}
+
 		{#snippet notices()}
 			<div class="col">
 				<Notice>No domains indexed.</Notice>
@@ -265,6 +276,7 @@
 		{/snippet}
 
 		<div class="grid">
+			{@render showcase('Badge', 'Primitives/Badge', badges)}
 			{@render showcase('Button', 'Primitives/Button', buttons)}
 			{@render showcase('Card', 'Primitives/Card', cards)}
 			{@render showcase('Confirmation', 'Primitives/Confirmation', confirmations)}

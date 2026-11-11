@@ -55,7 +55,7 @@ Then use the components:
 | Typography | `H1`, `H2`, `H3`, `P`, `Caption`, `Label`, `Link`                    |
 | Layout     | `Card` (+ `CardHeader`, `CardContent`, `CardMedia`, `CardFooter`)    |
 | Lists      | `List`, `ListItem`                                                   |
-| Feedback   | `Notice`, `Toast`, `Toaster` + `toaster`                             |
+| Feedback   | `Badge`, `Notice`, `Toast`, `Toaster` + `toaster`                    |
 | Navigation | `Tabs` (+ `TabList`, `Tab`, `TabPanel`)                              |
 | Overlays   | `Dialog`, `Confirmation`                                             |
 
