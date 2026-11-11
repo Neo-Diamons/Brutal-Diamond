@@ -5,5 +5,6 @@ export * from './dialog';
 export * from './form';
 export * from './list';
 export * from './notice';
+export * from './tabs';
 export * from './toast';
 export * from './typography';

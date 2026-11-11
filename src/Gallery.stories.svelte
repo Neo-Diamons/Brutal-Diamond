@@ -21,6 +21,10 @@
 		Notice,
 		P,
 		Select,
+		Tab,
+		TabList,
+		TabPanel,
+		Tabs,
 		Textarea,
 		Toaster,
 		toaster
@@ -46,6 +50,7 @@
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 
 	let listActive = $state('All items');
+	let tab = $state('overview');
 	let url = $state('');
 	let column = $state('todo');
 	let notes = $state('');
@@ -69,7 +74,7 @@
 		const canvas = within(canvasElement);
 
 		const links = canvas.getAllByRole('link', { name: /^View story/ });
-		await expect(links).toHaveLength(12);
+		await expect(links).toHaveLength(13);
 		await expect(canvas.getByRole('link', { name: 'View story, Form/Input' })).toHaveAttribute(
 			'href',
 			expect.stringContaining('primitives-form-input--docs')
@@ -193,6 +198,49 @@
 			/>
 		{/snippet}
 
+		{#snippet tabsDemo()}
+			<Tabs bind:value={tab}>
+				<TabList aria-label="Project sections">
+					<Tab value="overview">Overview</Tab>
+					<Tab value="activity">Activity</Tab>
+					<Tab value="settings">Settings</Tab>
+				</TabList>
+				<TabPanel value="overview">
+					<Card class="tabs-demo-panel">
+						<CardContent>
+							<div class="col">
+								<H3>Overview</H3>
+								<P>A summary of the project: owner, status and last deployment.</P>
+							</div>
+						</CardContent>
+					</Card>
+				</TabPanel>
+				<TabPanel value="activity">
+					<Card class="tabs-demo-panel">
+						<CardContent>
+							<div class="col">
+								<H3>Activity</H3>
+								<List>
+									<ListItem badge="NEW" description="2 minutes ago">Deployment succeeded</ListItem>
+									<ListItem description="1 hour ago">Comment added</ListItem>
+								</List>
+							</div>
+						</CardContent>
+					</Card>
+				</TabPanel>
+				<TabPanel value="settings">
+					<Card class="tabs-demo-panel">
+						<CardContent>
+							<div class="col">
+								<H3>Settings</H3>
+								<Notice>Changes apply to every environment.</Notice>
+							</div>
+						</CardContent>
+					</Card>
+				</TabPanel>
+			</Tabs>
+		{/snippet}
+
 		{#snippet toasts()}
 			<div class="row">
 				<Button onclick={() => toaster.push('Changes saved')}>Info</Button>
@@ -223,6 +271,7 @@
 			{@render showcase('Dialog', 'Primitives/Dialog', dialogs)}
 			{@render showcase('List', 'Primitives/List', lists)}
 			{@render showcase('Notice', 'Primitives/Notice', notices)}
+			{@render showcase('Tabs', 'Primitives/Tabs', tabsDemo)}
 			{@render showcase('Toast', 'Primitives/Toast', toasts)}
 			{@render showcase('Form/Input', 'Primitives/Form/Input', inputs)}
 			{@render showcase('Form/Select', 'Primitives/Form/Select', selects)}
@@ -273,6 +322,9 @@
 		}
 		.col {
 			flex-direction: column;
+		}
+		.grid :global(.tabs-demo-panel) {
+			min-height: 15rem;
 		}
 	}
 </style>

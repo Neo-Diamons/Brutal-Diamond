@@ -75,6 +75,7 @@
 
 		--border-style-alt: solid;
 		--border-outline: var(--border-width-thin) var(--border-style-alt) var(--color-line);
+		--tab-border: var(--border-outline);
 
 		--shadow-color: var(--color-ink);
 		--shadow-none: 0 0 0 0 transparent;
