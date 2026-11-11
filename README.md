@@ -56,6 +56,7 @@ Then use the components:
 | Layout     | `Card` (+ `CardHeader`, `CardContent`, `CardMedia`, `CardFooter`)    |
 | Lists      | `List`, `ListItem`                                                   |
 | Feedback   | `Notice`, `Toast`, `Toaster` + `toaster`                             |
+| Navigation | `Tabs` (+ `TabList`, `Tab`, `TabPanel`)                              |
 | Overlays   | `Dialog`, `Confirmation`                                             |
 
 Browse them all, with live props, in Storybook (see [Development](#development)).
