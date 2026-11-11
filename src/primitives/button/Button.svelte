@@ -129,14 +129,21 @@
 					box-shadow: var(--shadow-pressed);
 					filter: var(--button-pressed-filter);
 				}
-				&[aria-current='page'],
-				&[aria-pressed='true'] {
+				&:is([aria-current='page'], [aria-selected='true'], [aria-pressed='true']) {
 					transform: translate(var(--offset-press), var(--offset-press));
 					box-shadow: var(--shadow-pressed);
 				}
 
-				&.secondary:hover {
-					background-color: var(--button-secondary-hover-bg);
+				&.secondary {
+					&:hover {
+						background-color: var(--button-secondary-hover-bg);
+						box-shadow: var(--button-secondary-hover-shadow, var(--shadow-hover));
+					}
+					&:active,
+					&:is([aria-current='page'], [aria-selected='true'], [aria-pressed='true']) {
+						border-color: var(--button-secondary-active-border-color, var(--color-line));
+						box-shadow: var(--button-secondary-pressed-shadow, var(--shadow-pressed));
+					}
 				}
 				&.outline:hover {
 					background-color: var(--bg-surface-muted);
@@ -147,8 +154,7 @@
 						box-shadow: var(--button-filled-shadow, var(--shadow-hover));
 					}
 					&:active,
-					&[aria-current='page'],
-					&[aria-pressed='true'] {
+					&:is([aria-current='page'], [aria-selected='true'], [aria-pressed='true']) {
 						box-shadow: var(--button-filled-shadow, var(--shadow-pressed));
 					}
 				}

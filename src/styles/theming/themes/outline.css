@@ -45,6 +45,9 @@
 		--button-secondary-bg: var(--bg-main);
 		--button-secondary-fg: var(--color-ink);
 		--button-secondary-hover-bg: var(--bg-surface-muted);
+		--button-secondary-hover-shadow: none;
+		--button-secondary-pressed-shadow: none;
+		--button-secondary-active-border-color: var(--color-ink);
 
 		--shadow-active: var(--shadow-pressed);
 
