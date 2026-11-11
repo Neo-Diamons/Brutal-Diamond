@@ -1,11 +1,12 @@
-import { page } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 
 import Toaster from './Toaster.svelte';
 import { toaster } from './toaster.svelte';
 
-afterEach(() => {
+afterEach(async () => {
+	await userEvent.unhover(document.body);
 	toaster.clear();
 	vi.restoreAllMocks();
 });
