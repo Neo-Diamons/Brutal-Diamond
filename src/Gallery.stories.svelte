@@ -15,6 +15,7 @@
 		H2,
 		H3,
 		Input,
+		InputFile,
 		Label,
 		Link,
 		List,
@@ -75,7 +76,7 @@
 		const canvas = within(canvasElement);
 
 		const links = canvas.getAllByRole('link', { name: /^View story/ });
-		await expect(links).toHaveLength(14);
+		await expect(links).toHaveLength(15);
 		await expect(canvas.getByRole('link', { name: 'View story, Form/Input' })).toHaveAttribute(
 			'href',
 			expect.stringContaining('primitives-form-input--docs')
@@ -153,6 +154,12 @@
 				label="Target URL"
 				placeholder="https://svelte.dev"
 			/>
+		{/snippet}
+
+		{#snippet inputFiles()}
+			<InputFile id="gallery-compact" label="Avatar" variant="compact" accept="image/*" />
+			<InputFile id="gallery-resume" label="Resume" accept=".pdf,.txt" />
+			<InputFile id="gallery-attachments" label="Attachments" multiple maxFiles={5} />
 		{/snippet}
 
 		{#snippet links()}
@@ -286,6 +293,7 @@
 			{@render showcase('Tabs', 'Primitives/Tabs', tabsDemo)}
 			{@render showcase('Toast', 'Primitives/Toast', toasts)}
 			{@render showcase('Form/Input', 'Primitives/Form/Input', inputs)}
+			{@render showcase('Form/InputFile', 'Primitives/Form/InputFile', inputFiles)}
 			{@render showcase('Form/Select', 'Primitives/Form/Select', selects)}
 			{@render showcase('Form/Textarea', 'Primitives/Form/Textarea', textareas)}
 			{@render showcase('Typography/Link', 'Primitives/Typography/Link', links)}

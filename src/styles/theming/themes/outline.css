@@ -17,6 +17,7 @@
 		--shadow-pressed: inset 0 0 0 1px var(--color-line);
 		--shadow-hover: inset 0 0 0 1px color-mix(in srgb, var(--color-line) 50%, transparent);
 		--shadow-focus: inset 0 0 0 1px var(--bg-primary);
+		--shadow-focus-destructive: inset 0 0 0 1px var(--bg-destructive);
 
 		--font-weight-regular: 300;
 		--font-weight-medium: 400;

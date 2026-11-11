@@ -87,6 +87,8 @@
 			var(--shadow-color);
 		--shadow-focus: calc(var(--shadow-offset) * 1.5) calc(var(--shadow-offset) * 1.5) 0
 			var(--bg-primary);
+		--shadow-focus-destructive: calc(var(--shadow-offset) * 1.5) calc(var(--shadow-offset) * 1.5) 0
+			var(--bg-destructive);
 		--shadow-badge: calc(var(--shadow-offset) / 2) calc(var(--shadow-offset) / 2) 0
 			var(--color-badge-shadow);
 		--shadow-pressed: var(--shadow-none);
@@ -145,6 +147,7 @@
 
 		--margin-field: var(--space-3);
 		--textarea-max-height: 20lh;
+		--input-file-height: 9em;
 		--margin-card: var(--space-6);
 		--margin-text-sm: var(--space-4);
 		--margin-text-md: var(--space-6);

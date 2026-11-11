@@ -51,7 +51,7 @@ Then use the components:
 | Group      | Components                                                           |
 | ---------- | -------------------------------------------------------------------- |
 | Actions    | `Button` (`primary`, `secondary`, `outline`, `destructive`; or link) |
-| Form       | `Input`, `Select`, `Textarea`                                        |
+| Form       | `Input`, `InputFile`, `Select`, `Textarea`                           |
 | Typography | `H1`, `H2`, `H3`, `P`, `Caption`, `Label`, `Link`                    |
 | Layout     | `Card` (+ `CardHeader`, `CardContent`, `CardMedia`, `CardFooter`)    |
 | Lists      | `List`, `ListItem`                                                   |
