@@ -25,5 +25,18 @@ updates:
       lint:
         patterns: ['eslint', '@eslint/*', 'eslint-*', 'typescript-eslint', 'prettier*', 'globals']
       dev-dependencies:
-        dependency-type: development
-        update-types: ['minor', 'patch']
+        patterns: ['*']
+        exclude-patterns:
+          - 'storybook'
+          - '@storybook/*'
+          - 'eslint-plugin-storybook'
+          - 'vitest'
+          - '@vitest/*'
+          - 'vitest-browser-svelte'
+          - 'playwright'
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-*'
+          - 'typescript-eslint'
+          - 'prettier*'
+          - 'globals'
