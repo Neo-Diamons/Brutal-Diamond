@@ -2,7 +2,14 @@ name: Checks
 
 on:
   pull_request:
-  workflow_call: # main pushes run through storybook.yml, releases through release.yml
+    paths-ignore:
+      - 'LICENSE.md'
+      - 'CHANGELOG.md'
+  workflow_call: # main pushes run through release.yml
+    outputs:
+      code:
+        description: Whether code (not only docs/config) changed
+        value: ${{ jobs.checks.outputs.code }}
 
 permissions:
   contents: read
@@ -15,10 +22,32 @@ jobs:
   checks:
     runs-on: ubuntu-26.04
     timeout-minutes: 20
+    outputs:
+      code: ${{ steps.changes.outputs.code }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 2
+
+      - name: Detect code changes
+        id: changes
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = workflow_dispatch ] || ! git diff --quiet HEAD^1 HEAD -- \
+            src \
+            .storybook \
+            package.json \
+            package-lock.json \
+            vite.config.ts \
+            tsconfig.json \
+            .npmrc \
+            .github/workflows/checks.yml; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -34,14 +63,17 @@ jobs:
         run: npm run lint
 
       - name: Type check
+        if: steps.changes.outputs.code == 'true'
         run: npm run check
 
       # Tests
       - name: Get Playwright version
+        if: steps.changes.outputs.code == 'true'
         id: playwright
         run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browser
+        if: steps.changes.outputs.code == 'true'
         id: playwright-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
@@ -49,18 +81,19 @@ jobs:
           key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
 
       - name: Install Playwright browser
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.changes.outputs.code == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.changes.outputs.code == 'true' && steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
       - name: Test with coverage
+        if: steps.changes.outputs.code == 'true'
         run: npm run test:coverage
 
       - name: Publish coverage report
-        if: ${{ !cancelled() && hashFiles('coverage/coverage-summary.json') != '' }}
+        if: ${{ !cancelled() && steps.changes.outputs.code == 'true' && hashFiles('coverage/coverage-summary.json') != '' }}
         run: |
           {
             echo '## Coverage'
@@ -71,7 +104,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload coverage report
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.changes.outputs.code == 'true' }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: coverage
@@ -81,9 +114,11 @@ jobs:
 
       # Builds
       - name: Build package
+        if: steps.changes.outputs.code == 'true'
         run: npm run build
 
       - name: Upload package build
+        if: steps.changes.outputs.code == 'true'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
@@ -92,9 +127,11 @@ jobs:
           retention-days: 1
 
       - name: Build Storybook
+        if: steps.changes.outputs.code == 'true'
         run: npm run build-storybook
 
       - name: Upload Storybook for Pages
+        if: steps.changes.outputs.code == 'true'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: storybook-static

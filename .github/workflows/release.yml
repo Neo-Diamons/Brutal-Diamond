@@ -3,6 +3,7 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,12 +29,27 @@ jobs:
           manifest-file: .release-please-manifest.json
 
   checks:
-    needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
     uses: ./.github/workflows/checks.yml
+
+  deploy-storybook:
+    needs: checks
+    if: needs.checks.outputs.code == 'true'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: storybook
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   publish:
     needs: [release-please, checks]
+    if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-26.04
     timeout-minutes: 10
     environment: npm
