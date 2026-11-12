@@ -50,6 +50,7 @@
 		--button-secondary-pressed-shadow: none;
 		--button-secondary-active-border-color: var(--color-ink);
 		--tab-border: var(--border-width-thin) solid var(--color-line);
+		--accordion-shadow: none;
 
 		--shadow-active: var(--shadow-pressed);
 

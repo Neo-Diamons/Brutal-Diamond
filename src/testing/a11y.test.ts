@@ -6,6 +6,7 @@ import { render } from 'vitest-browser-svelte';
 
 import '../styles/index.css';
 import {
+	AccordionItem,
 	Button,
 	Card,
 	CardContent,
@@ -64,6 +65,15 @@ describe('accessibility', () => {
 		render(CardHeader, { children: text('Header') });
 		render(CardContent, { children: text('Content') });
 		render(CardFooter, { children: text('Footer') });
+
+		expect(await violations()).toEqual([]);
+	});
+
+	it('has no violations for an accordion with open, disabled and heading items', async () => {
+		render(AccordionItem, { title: 'Plain', children: text('Body') });
+		render(AccordionItem, { title: 'Open', open: true, level: 3, children: text('Body') });
+		render(AccordionItem, { title: 'Disabled', disabled: true, children: text('Body') });
+		render(AccordionItem, { title: 'Badged', aside: text('FAILED'), children: text('Body') });
 
 		expect(await violations()).toEqual([]);
 	});

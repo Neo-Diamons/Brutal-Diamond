@@ -9,6 +9,8 @@ import '../styles/index.css';
 import '../styles/theming/themes/outline.css';
 import '../styles/theming/modes/dark.css';
 import { THEMES, setTheme } from '../styles/theming/theme';
+import AccordionItem from '../primitives/accordion/AccordionItem.svelte';
+import AccordionBadgeHarness from '../primitives/accordion/AccordionBadgeHarness.test.svelte';
 import Button from '../primitives/button/Button.svelte';
 import Input from '../primitives/form/input/Input.svelte';
 import Select from '../primitives/form/select/Select.svelte';
@@ -43,6 +45,40 @@ describe.each(THEMES)('control height in the %s theme', (theme) => {
 		expect(height(page.getByLabelText('Choice').element())).toBe(button);
 		expect(height(page.getByLabelText('Notes').element())).toBe(button);
 		expect(height(document.querySelector('.dropzone.compact')!)).toBe(button);
+	});
+});
+
+describe.each(THEMES)('collapsed accordion item in the %s theme', (theme) => {
+	const label = (text: string) =>
+		createRawSnippet(() => ({ render: () => `<span>${text}</span>` }));
+
+	it('is as tall as a button, with or without a badge in the header', async () => {
+		await setTheme(theme);
+		await document.fonts.load('bold 13px "Karla Variable"');
+		render(Button, { children: label('Go') });
+		render(AccordionItem, { title: 'Plain', 'data-testid': 'plain', children: label('Body') });
+		render(AccordionItem, {
+			title: 'Badged',
+			'data-testid': 'badged',
+			aside: createRawSnippet(() => ({ render: () => '<span class="b">FAILED</span>' })),
+			children: label('Body')
+		});
+
+		const button = height(page.getByRole('button', { name: 'Go' }).element());
+
+		expect(height(page.getByTestId('plain').element())).toBe(button);
+		expect(height(page.getByTestId('badged').element())).toBe(button);
+	});
+
+	it('stays as tall as a button with a real Badge in the header', async () => {
+		await setTheme(theme);
+		await document.fonts.load('bold 13px "Karla Variable"');
+		render(Button, { children: label('Go') });
+		render(AccordionBadgeHarness, {});
+
+		const button = height(page.getByRole('button', { name: 'Go' }).element());
+
+		expect(height(page.getByTestId('with-badge').element())).toBe(button);
 	});
 });
 

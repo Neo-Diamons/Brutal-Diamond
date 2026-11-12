@@ -76,6 +76,13 @@
 		--border-style-alt: solid;
 		--border-outline: var(--border-width-thin) var(--border-style-alt) var(--color-line);
 		--tab-border: var(--border-outline);
+		--accordion-border: var(--border-thin);
+		--accordion-hover-bg: var(--bg-surface-muted);
+		--duration-accordion: 0.15s;
+		--gap-accordion: var(--gap-md);
+		--accordion-shadow: var(--shadow-flat);
+		--accordion-chevron-size: 0.5em;
+		--accordion-aside-height: 1lh;
 
 		--shadow-color: var(--color-ink);
 		--shadow-none: 0 0 0 0 transparent;
