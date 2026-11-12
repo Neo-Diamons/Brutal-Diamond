@@ -56,6 +56,7 @@ Then use the components:
 | Layout     | `Card` (+ `CardHeader`, `CardContent`, `CardMedia`, `CardFooter`)    |
 | Lists      | `List`, `ListItem`                                                   |
 | Feedback   | `Badge`, `Notice`, `Toast`, `Toaster` + `toaster`                    |
+| Disclosure | `Accordion`, `AccordionItem`                                         |
 | Navigation | `Tabs` (+ `TabList`, `Tab`, `TabPanel`)                              |
 | Overlays   | `Dialog`, `Confirmation`                                             |
 

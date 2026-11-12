@@ -2,6 +2,8 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import {
+		Accordion,
+		AccordionItem,
 		Badge,
 		Button,
 		Caption,
@@ -49,13 +51,57 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import type { BadgeVariant } from './primitives';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
+
+	type Step = {
+		title: string;
+		status: string;
+		variant: BadgeVariant;
+		duration: string;
+		log: string;
+		open: boolean;
+	};
 
 	let listActive = $state('All items');
 	let tab = $state('overview');
 	let url = $state('');
 	let column = $state('todo');
 	let notes = $state('');
+	const steps: Step[] = [
+		{
+			title: 'Validate request',
+			status: 'OK',
+			variant: 'primary',
+			duration: '3 ms',
+			log: 'POST /api/orders: 4 items, schema valid.',
+			open: false
+		},
+		{
+			title: 'Check stock',
+			status: 'WARN',
+			variant: 'secondary',
+			duration: '42 ms',
+			log: 'Low stock on sku B-0007: 1 unit left.',
+			open: false
+		},
+		{
+			title: 'Charge card',
+			status: 'FAILED',
+			variant: 'destructive',
+			duration: '1204 ms',
+			log: '402 card_declined (insufficient_funds), 3 retries.',
+			open: true
+		},
+		{
+			title: 'Send email',
+			status: 'SKIPPED',
+			variant: 'outline',
+			duration: '-',
+			log: 'Skipped: previous step failed.',
+			open: false
+		}
+	];
 
 	/**
 	 * Builds the docs URL of a story from the manager URL, so the selected globals (theme, mode) are
@@ -76,7 +122,7 @@
 		const canvas = within(canvasElement);
 
 		const links = canvas.getAllByRole('link', { name: /^View story/ });
-		await expect(links).toHaveLength(15);
+		await expect(links).toHaveLength(16);
 		await expect(canvas.getByRole('link', { name: 'View story, Form/Input' })).toHaveAttribute(
 			'href',
 			expect.stringContaining('primitives-form-input--docs')
@@ -216,6 +262,20 @@
 			/>
 		{/snippet}
 
+		{#snippet accordions()}
+			<Accordion multiple>
+				{#each steps as step (step.title)}
+					<AccordionItem title={step.title} open={step.open}>
+						{#snippet aside()}
+							<Badge variant={step.variant}>{step.status}</Badge>
+						{/snippet}
+						<Caption>{step.duration}</Caption>
+						<P>{step.log}</P>
+					</AccordionItem>
+				{/each}
+			</Accordion>
+		{/snippet}
+
 		{#snippet tabsDemo()}
 			<Tabs bind:value={tab}>
 				<TabList aria-label="Project sections">
@@ -283,6 +343,7 @@
 		{/snippet}
 
 		<div class="grid">
+			{@render showcase('Accordion', 'Primitives/Accordion', accordions)}
 			{@render showcase('Badge', 'Primitives/Badge', badges)}
 			{@render showcase('Button', 'Primitives/Button', buttons)}
 			{@render showcase('Card', 'Primitives/Card', cards)}
