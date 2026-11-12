@@ -12,6 +12,7 @@
 </script>
 
 <script lang="ts">
+	import { isDev } from '../utils/dev';
 	import { setAccordionContext } from './context';
 
 	let {
@@ -43,7 +44,7 @@
 	/** Sets the DOM state; each item's bound `open` follows on the resulting `toggle` event. */
 	function setAll(open: boolean) {
 		if (!multiple) {
-			if (import.meta.env?.DEV) {
+			if (isDev()) {
 				console.warn('Accordion: expandAll/collapseAll need the `multiple` prop; ignored.');
 			}
 			return;

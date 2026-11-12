@@ -19,6 +19,8 @@
 </script>
 
 <script lang="ts">
+	import { isDev } from '../utils/dev';
+
 	let {
 		open = $bindable(false),
 		trigger,
@@ -29,7 +31,7 @@
 	}: DialogProps = $props();
 
 	$effect(() => {
-		if (import.meta.env?.DEV && !label && !labelledby) {
+		if (isDev() && !label && !labelledby) {
 			console.warn('Dialog: set `label` or `labelledby` so the dialog has an accessible name.');
 		}
 	});

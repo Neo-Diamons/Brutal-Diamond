@@ -3,7 +3,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { createRawSnippet } from 'svelte';
 
+import { isDev } from '../utils/dev';
 import Dialog from './Dialog.svelte';
+
+vi.mock('../utils/dev', { spy: true });
 
 const trigger = createRawSnippet<[{ open: () => void }]>((args) => ({
 	render: () => '<button type="button">Open</button>',
@@ -156,6 +159,17 @@ describe('Dialog', () => {
 
 		expect(warn).toHaveBeenCalledWith(expect.stringContaining('label'));
 		warn.mockRestore();
+	});
+
+	it('stays silent outside development', () => {
+		vi.mocked(isDev).mockReturnValue(false);
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+		render(Dialog, { trigger, children });
+
+		expect(warn).not.toHaveBeenCalled();
+		warn.mockRestore();
+		vi.mocked(isDev).mockRestore();
 	});
 
 	it('can be opened again after Escape', async () => {

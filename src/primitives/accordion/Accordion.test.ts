@@ -8,9 +8,12 @@ import '../../styles/theming/themes/outline.css';
 import '../../styles/theming/modes/dark.css';
 import { THEMES, setTheme } from '../../styles/theming/theme';
 import { contrast } from '../../testing/contrast';
+import { isDev } from '../utils/dev';
 import Accordion from './Accordion.svelte';
 import AccordionHarness from './AccordionHarness.test.svelte';
 import AccordionItem from './AccordionItem.svelte';
+
+vi.mock('../utils/dev', { spy: true });
 
 const text = (value: string) => createRawSnippet(() => ({ render: () => `<span>${value}</span>` }));
 
@@ -170,7 +173,7 @@ describe('Accordion expand and collapse all', () => {
 	});
 
 	it('stays silent outside development', async () => {
-		vi.stubEnv('DEV', false);
+		vi.mocked(isDev).mockReturnValueOnce(false);
 		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 		render(AccordionHarness, {});
 
@@ -178,7 +181,6 @@ describe('Accordion expand and collapse all', () => {
 
 		expect(warn).not.toHaveBeenCalled();
 		warn.mockRestore();
-		vi.unstubAllEnvs();
 	});
 
 	it('does nothing through the API without multiple', async () => {
