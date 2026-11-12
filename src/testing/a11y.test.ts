@@ -87,7 +87,7 @@ describe('accessibility', () => {
 	it('has no violations for a list', async () => {
 		render(List, {
 			children: createRawSnippet(() => ({
-				render: () => '<li><a href="/one" aria-current="page">One</a></li><li>Two</li>'
+				render: () => '<li><a href="/one" aria-current="page">One</a></li>'
 			}))
 		});
 

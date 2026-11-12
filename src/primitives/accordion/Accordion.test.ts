@@ -182,10 +182,12 @@ describe('Accordion expand and collapse all', () => {
 	});
 
 	it('does nothing through the API without multiple', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 		render(AccordionHarness, {});
 
 		await page.getByRole('button', { name: 'api expand' }).click();
 		await expect.element(page.getByText('Second body')).not.toBeVisible();
+		warn.mockRestore();
 	});
 });
 

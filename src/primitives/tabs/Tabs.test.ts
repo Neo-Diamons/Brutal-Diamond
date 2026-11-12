@@ -18,7 +18,7 @@ import Tabs from './Tabs.svelte';
 type Node = [component: Component<any>, props: Record<string, unknown>, children?: Node[]];
 
 /** `Tab` instances mounted by `snippetOf`, so tests can unmount one like an `{#if}` would. */
-const mounted = new Map<string, Record<string, unknown>>();
+const mounted = new Map<string, () => void>();
 
 /**
  * Builds a snippet that mounts `nodes` into the enclosing `Tabs`, since a raw snippet can only
@@ -35,10 +35,16 @@ function snippetOf(nodes: Node[]): Snippet {
 					context,
 					props: { ...props, ...(children && { children: snippetOf(children) }) }
 				});
-				if (component === Tab) mounted.set(String(props.value), instance);
-				return instance;
+				let done = false;
+				const release = () => {
+					if (done) return;
+					done = true;
+					unmount(instance);
+				};
+				if (component === Tab) mounted.set(String(props.value), release);
+				return release;
 			});
-			return () => instances.forEach((instance) => unmount(instance));
+			return () => instances.forEach((release) => release());
 		}
 	}));
 }
@@ -337,7 +343,7 @@ describe('Tabs defaults', () => {
 		renderTabs({ value: 'a' });
 		await expect.element(alpha()).toHaveAttribute('aria-selected', 'true');
 
-		unmount(mounted.get('a')!);
+		mounted.get('a')!();
 
 		await expect.element(beta()).toHaveAttribute('aria-selected', 'true');
 	});

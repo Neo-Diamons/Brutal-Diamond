@@ -182,7 +182,7 @@
 		{/snippet}
 
 		{#snippet dialogs()}
-			<Dialog>
+			<Dialog label="Example dialog">
 				{#snippet trigger({ open })}
 					<Button onclick={open}>Open dialog</Button>
 				{/snippet}
